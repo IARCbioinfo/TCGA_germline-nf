@@ -13,3 +13,21 @@ annotation of germline variants from TCGA data
 	```
 
 2. Install [annovar](http://annovar.openbioinformatics.org/en/latest/) and move the perl script `annotate_variation.pl` in your path.
+
+#### Description
+
+This program takes in input a TCGA data-like folder of VCF files, _e.g._ `myfolder` containing all `/ids_sample1/sample1.vcf`, `/ids_sample2/sample2.vcf`, `/ids_sample3/sample3.vcf`, etc.  
+Then it filters out germline variants from these VCF files, with a minimum coverage `--min_DP` and variant allelic fraction `--min_af`.  
+After that it reformats these files into annovar inputs (by cancer type) and finally annotates the files and output them in a result folder (`--out_folder`).  
+
+#### Execution
+Nextflow seamlessly integrates with GitHub hosted code repositories:
+
+`nextflow run iarcbioinfo/TCGA_germline-nf --TCGA_folder myfolder`
+
+#### Help and options
+You can print the help manual by providing `--help` in the execution command line:
+```bash
+nextflow run iarcbioinfo/TCGA_germline-nf --help
+```
+
