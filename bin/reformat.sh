@@ -1,7 +1,8 @@
 #!/bin/bash
 
-SM=$4
-res=$4"_reformat.vcf"						#get the name of the output
+SM=`grep "^##SAMPLE=<ID=NORM" $1 | grep -oP '(?<=Individual=).*?(?=,Desc)'`	#get the sample name from the header of input VCF
+
+res=$SM"_reformat.vcf"						#get the name of the output
 
 grep -v "^#" $1 | awk '{ 							#duplicate the column start to have start and end (both equal at this time)
         OFS="	"; FS="	"
@@ -19,8 +20,6 @@ grep -v "^#" $1 | awk '{ 							#duplicate the column start to have start and en
        a=$4; for (i=4;i<NF; i++) $i=$(i+1); $NF=a; print
     }
 ' > $res
-
-#SM=`grep "^##SAMPLE=<ID=NORM" $1 | grep -oP '(?<=Individual=).*?(?=,Desc)'`	#get the sample name from the header of input VCF
 
 sed -i "s/$/\t$SM/" $res							#add the sample name as a last column
 

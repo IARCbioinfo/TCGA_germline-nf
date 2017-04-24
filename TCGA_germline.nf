@@ -55,7 +55,7 @@ process reformat {
 
   shell:
   '''
-  reformat.sh filter.vcf !{baseDir}/data/tissueSourceSite.tsv !{baseDir}/data/diseaseStudy.tsv !{SM_tag}
+  reformat.sh filter.vcf !{baseDir}/data/tissueSourceSite.tsv !{baseDir}/data/diseaseStudy.tsv
   '''
 
 }
