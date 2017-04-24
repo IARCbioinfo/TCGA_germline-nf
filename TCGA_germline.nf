@@ -86,7 +86,7 @@ process annovar {
   file reformated_for_annovar
 
   output:
-  file "multianno.txt" into output_annovar
+  file "*multianno.txt" into output_annovar
 
   shell:
   cancer_site = reformated_for_annovar.baseName.replace("TCGA_germline_reformat_","")
