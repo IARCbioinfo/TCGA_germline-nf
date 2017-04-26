@@ -51,7 +51,7 @@ process reformat {
   set val(SM_tag), file("*filter.vcf") from germ_filt
 
   output:
-  file '*reformat.vcf' into reformated
+  file '*reformat.tsv' into reformated
 
   shell:
   '''
@@ -62,35 +62,18 @@ process reformat {
 
 process merge {
 
+  publishDir params.out_folder, mode: 'move'
+
   input:
   file all_reformated from reformated.toList()
 
   output:
-  file "*.vcf" into reformated_for_annovar mode flatten
+  file "*.tsv" into reformated_for_annovar mode flatten
 
   shell:
   '''
-  cat *reformat.vcf > big.vcf
-  awk -F" " '{print >  "TCGA_germline_reformat_"$NF".vcf"}' big.vcf
-  rm big.vcf
-  '''
-}
-
-process annovar {
-
-  publishDir params.out_folder, mode: 'move'
-
-  tag { cancer_site }
-
-  input:
-  file reformated_for_annovar
-
-  output:
-  file "*multianno.txt" into output_annovar
-
-  shell:
-  cancer_site = reformated_for_annovar.baseName.replace("TCGA_germline_reformat_","")
-  '''
-  table_annovar.pl -nastring NA -buildver hg19 --onetranscript -remove -protocol refGene,knownGene,ensGene,cytoBand,genomicSuperDups,tfbsConsSites,gwasCatalog,avsnp138,avsnp144,popfreq_all_20150413,cosmic70,clinvar_20150330,ljb26_all -operation g,g,g,r,r,r,r,f,f,f,f,f,f -otherinfo !{reformated_for_annovar} /appli57/annovar/Annovar_DB/hg19db
+  cat *reformat.tsv > big.tsv
+  awk -F" " '{print >  "TCGA_germline_reformat_"$NF".tsv"}' big.tsv
+  rm big.tsv
   '''
 }

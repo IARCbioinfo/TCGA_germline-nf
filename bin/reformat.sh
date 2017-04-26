@@ -1,8 +1,8 @@
 #!/bin/bash
 
-SM=`grep "^##SAMPLE=<ID=NORM" $1 | grep -oP '(?<=Individual=).*?(?=,Desc)'`	#get the sample name from the header of input VCF
+SM=`grep "^##SAMPLE=<ID=NORM" $1 | grep -oP '(?<=Individual=).*?(?=,Desc)'`	#get the sample name from the header of input vcf
 
-res=$SM"_reformat.vcf"						#get the name of the output
+res=$SM"_reformat.tsv"						#get the name of the output
 
 grep -v "^#" $1 | awk '{ 							#duplicate the column start to have start and end (both equal at this time)
         OFS="	"; FS="	"
