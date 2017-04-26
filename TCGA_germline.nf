@@ -6,7 +6,7 @@ params.out_folder = "."
 if (params.help) {
     log.info ''
     log.info '--------------------------------------------------'
-    log.info '              TCGA GERMLINE ANNOTATION            '
+    log.info '              TCGA GERMLINE EXTRACTION            '
     log.info '--------------------------------------------------'
     log.info ''
     log.info 'Usage: '
