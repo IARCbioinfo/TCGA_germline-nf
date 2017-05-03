@@ -2,7 +2,8 @@
 
 SM=`grep "^##SAMPLE=<ID=NORM" $1 | grep -oP '(?<=Individual=).*?(?=,Desc)'`	#get the sample name from the header of input vcf
 
-res=$SM"_reformat.tsv"						#get the name of the output
+uniqID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1)
+res=$SM"_"$uniqID"_reformat.tsv"						#get the name of the output
 
 grep -v "^#" $1 | awk '{ 							#duplicate the column start to have start and end (both equal at this time)
         OFS="	"; FS="	"
